@@ -1,4 +1,4 @@
-debugger
+
 var randomNumber = function(min, max){
     var value = Math.floor(Math.random()*(max-min + 1)+ min);
     return value;
@@ -51,10 +51,10 @@ var enemyInfo = [
     
 
 
-console.log (enemyInfo.name);
+console.log (enemyInfo);
 console.log(enemyInfo.length);
-console.log(enemyInfo.name[0]);
-console.log(enemyInfo.name[3]);
+console.log(enemyInfo[0].name);
+// console.log(enemyInfo[3].name);
 
 
 var fight = function (enemy) {
@@ -73,7 +73,7 @@ var fight = function (enemy) {
         var damage = randomNumber(playerInfo.attack-3, playerInfo.attack);
         enemy.health = Math.max(0, enemy.health - damage);
         console.log(
-            playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemyHealth + " health remaining."
+            playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
         );
 
         // check enemy's health
@@ -92,7 +92,7 @@ var fight = function (enemy) {
             enemy.name + " attacked " + playerInfo.name + "." + playerInfo.name + " now has " + playerInfo.health + " health remaining."
         );
         // check player health
-        if (playerHealth<=0) {
+        if (playerInfo.health<=0) {
             window.alert(playerInfo.name + " has died!");
             break;
         } else {
@@ -100,6 +100,30 @@ var fight = function (enemy) {
         }
     } 
 };
+var shop = function(){
+    var shopOptionPrompt = window.prompt(
+        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+    );
+    switch (shopOptionPrompt){
+        case "refill":
+        case "REFILL":
+            playerInfo.refillHealth();
+            break;
+        case "upgrade":
+        case "UPGRADE":
+            playerInfo.upgradeAttack();
+            break;
+        case "leave":
+        case "LEAVE":
+            window.alert("Leaving the store.");
+            break;
+        default:
+            window.alert("You did not pick a valid option. Try again.");
+            shop();
+            break;
+    }
+};
+
 var startGame = function() {
     playerInfo.reset();
     for (var i = 0; i < enemyInfo.length; i++) {
@@ -115,11 +139,11 @@ var startGame = function() {
             pickedEnemyObj.health = randomNumber(40, 60);
         
             // use debugger to pause script from running and check what's going on at that moment in the code
-            debugger;
+            // debugger;
         
             // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
             fight(pickedEnemyObj);
-            if (playerInfo.health > 0 && i < enemyNames.length - 1){
+            if (playerInfo.health > 0 && i < enemyInfo.length - 1){
                 var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
                 if (storeConfirm) {
                     shop();
@@ -151,28 +175,6 @@ var endGame = function (){
     }
 };
 
-var shop = function(){
-    var shopOptionPrompt = window.prompt(
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
-    );
-    switch (shopOptionPrompt){
-        case "refill":
-        case "REFILL":
-            playerInfo.refillHealth();
-            break;
-        case "upgrade":
-        case "UPGRADE":
-            playerInfo.upgradeAttack();
-            break;
-        case "leave":
-        case "LEAVE":
-            window.alert("Leaving the store.");
-            break;
-        default:
-            window.alert("You did not pick a valid option. Try again.");
-            shop();
-            break;
-    }
-};
-
-startGame();}
+}
+    startGame();
+    console.log (playerInfo);
