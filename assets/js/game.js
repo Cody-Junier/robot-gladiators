@@ -2,7 +2,7 @@ var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
-console.log (playerName);
+console.log(playerName);
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack =12;
@@ -71,7 +71,7 @@ var startGame = function() {
             enemyHealth = 50;
         
             // use debugger to pause script from running and check what's going on at that moment in the code
-            // debugger;
+            debugger;
         
             // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
             fight(pickedEnemyName);
@@ -82,7 +82,24 @@ var startGame = function() {
             break;
         }
     }
-    startGame();
+    // startGame();
+    endGame();
+};
+
+var endGame = function (){
+    if (playerHealth > 0 ){
+    window.alert("The game has now ended. Let's see how you did!");
+    }
+    else {
+        window.alert("You've lost your robot in battle.");
+    }
+    var playAgainConfirm = window.confirm("Would you like to play again?");
+    if (playAgainConfirm){
+        startGame();
+    }
+    else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
 };
 startGame();
   
